@@ -6,3 +6,6 @@ def leitura_arquivo ():
             print(f"senha : {arquivo.readline()}")
  
 leitura_arquivo()
+
+# Exportar o código apenas aonde pretende debugar, seja no inicio, meio, fim.
+
