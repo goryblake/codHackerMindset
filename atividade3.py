@@ -7,5 +7,5 @@ def leitura_arquivo ():
  
 leitura_arquivo()
 
+# Código simples para debug.
 # Exportar o código apenas aonde pretende debugar, seja no inicio, meio, fim.
-
