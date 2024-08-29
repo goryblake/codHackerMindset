@@ -10,3 +10,5 @@ for porta in range(1,65536):
     else:
         pass
 
+# Port scanner simples,
+# Modificar IP conforme o alvo.
