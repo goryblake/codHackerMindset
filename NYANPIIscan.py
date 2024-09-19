@@ -51,6 +51,10 @@ class BurpExtender(IBurpExtender, IHttpListener):
             possible_cpf = list(set(possible_cpf))  # Remove duplicatas
             cpf_ok = [cpf for cpf in possible_cpf if validate_cpf(cpf)]
 
+            # Padrão para números de cartão de crédito
+            cc_pattern = re.compile(r'\b\d{4} \d{4} \d{4} \d{4}\b')
+            cc_matches = cc_pattern.findall(body_str)
+
             # Exibe apenas as informações válidas
             if cvc_value:
                 print("CVC: %s" % cvc_value)
@@ -59,3 +63,6 @@ class BurpExtender(IBurpExtender, IHttpListener):
                     print("Cell phone number: %s" % phone)
             if cpf_ok:
                 print("CPF: %s" % cpf_ok[0])
+            if cc_matches:
+                for cc in cc_matches:
+                    print("Credit Card Number: %s" % cc)
