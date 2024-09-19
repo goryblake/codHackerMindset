@@ -17,9 +17,9 @@ class BurpExtender(IBurpExtender, IHttpListener):
     def registerExtenderCallbacks(self, callbacks):
         self._callbacks = callbacks
         self._helpers = callbacks.getHelpers()
-        callbacks.setExtensionName("NYAN PII Scanner")
+        callbacks.setExtensionName("PII Scanner")
         callbacks.registerHttpListener(self)
-        print("NYAN PII Scanner, Installation OK!!! :3")
+        print("NYAN PIIScanner2, Installation OK!!! :3")
 
     def processHttpMessage(self, toolFlag, messageIsRequest, messageInfo):
         if not messageIsRequest:
@@ -55,6 +55,14 @@ class BurpExtender(IBurpExtender, IHttpListener):
             cc_pattern = re.compile(r'\b\d{4} \d{4} \d{4} \d{4}\b')
             cc_matches = cc_pattern.findall(body_str)
 
+            # Padrão para CNPJ: 12.345.678/0001-00
+            cnpj_pattern = re.compile(r'\b\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\b')
+            cnpj_matches = cnpj_pattern.findall(body_str)
+
+            # Padrão para RG: 417245683 (apenas números)
+            rg_pattern = re.compile(r'\b\d{7,9}\b')
+            rg_matches = rg_pattern.findall(body_str)
+
             # Exibe apenas as informações válidas
             if cvc_value:
                 print("CVC: %s" % cvc_value)
@@ -66,3 +74,9 @@ class BurpExtender(IBurpExtender, IHttpListener):
             if cc_matches:
                 for cc in cc_matches:
                     print("Credit Card Number: %s" % cc)
+            if cnpj_matches:
+                for cnpj in cnpj_matches:
+                    print("CNPJ: %s" % cnpj)
+            if rg_matches:
+                for rg in rg_matches:
+                    print("RG: %s" % rg)
